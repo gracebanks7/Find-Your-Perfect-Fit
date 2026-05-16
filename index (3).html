@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glamicia — Size Guide & Style Quiz</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #ececec;
+    --accent: #1a1a1a;
+    --accent-soft: #f3efe8;
+    --success: #2d5a3d;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 24px 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .brand {
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .progress-wrap {
+    margin-bottom: 24px;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--line);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 100px;
+  }
+
+  .question {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .question.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .question .hint {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 16px 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+  }
+
+  .option:hover {
+    border-color: var(--ink);
+    background: var(--accent-soft);
+  }
+
+  .option input[type="radio"] {
+    display: none;
+  }
+
+  .option .radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d0d0d0;
+    border-radius: 50%;
+    margin-right: 14px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .option input[type="radio"]:checked + .radio {
+    border-color: var(--ink);
+  }
+
+  .option input[type="radio"]:checked + .radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+
+  .option.selected {
+    border-color: var(--ink);
+    background: var(--accent-soft);
+  }
+
+  .option-text {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .error {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .error.show {
+    display: block;
+  }
+
+  .nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+
+  .btn-secondary:hover {
+    background: #e8e3da;
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Results */
+  .result {
+    display: none;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+  }
+
+  .result.active {
+    display: block;
+  }
+
+  .result-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--accent-soft);
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .result h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .result-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .result-box {
+    padding: 22px 16px;
+    background: var(--accent-soft);
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .result-box .label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .result-box .value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .result-box .value.size {
+    font-size: 36px;
+  }
+
+  .personality-desc {
+    text-align: left;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 14px;
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+  }
+
+  .personality-desc h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .personality-desc p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-cta {
+    background: var(--ink);
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cta:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+
+  .btn-cta svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .btn-restart {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--line);
+  }
+
+  .btn-restart:hover {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 16px 12px; }
+    .header h1 { font-size: 24px; }
+    .card { padding: 22px 18px; border-radius: 18px; }
+    .question h2 { font-size: 18px; }
+    .result h2 { font-size: 22px; }
+    .result-box .value { font-size: 24px; }
+    .result-box .value.size { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">Glamicia</div>
+      <h1>Find Your Perfect Fit</h1>
+      <p>Answer a few quick questions to discover your size & style</p>
+    </div>
+
+    <div class="card">
+      <!-- Quiz View -->
+      <div id="quizView">
+        <div class="progress-wrap">
+          <div class="progress-info">
+            <span id="qCounter">Question 1 of 5</span>
+            <span id="qPercent">20%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Q1: Height -->
+        <div class="question active" data-q="1">
+          <h2>What's your height?</h2>
+          <p class="hint">This helps us recommend the right length</p>
+          <div class="options" data-name="height">
+            <label class="option">
+              <input type="radio" name="height" value="xs" />
+              <span class="radio"></span>
+              <span class="option-text">Under 5'2" (under 157 cm)</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="height" value="s" />
+              <span class="radio"></span>
+              <span class="option-text">5'2" – 5'5" (157–165 cm)</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="height" value="m" />
+              <span class="radio"></span>
+              <span class="option-text">5'6" – 5'8" (166–173 cm)</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="height" value="l" />
+              <span class="radio"></span>
+              <span class="option-text">5'9" – 6'0" (174–183 cm)</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="height" value="xl" />
+              <span class="radio"></span>
+              <span class="option-text">Over 6'0" (over 183 cm)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q2: Body Frame -->
+        <div class="question" data-q="2">
+          <h2>How would you describe your body frame?</h2>
+          <p class="hint">Choose the option that feels most like you</p>
+          <div class="options" data-name="frame">
+            <label class="option">
+              <input type="radio" name="frame" value="s" />
+              <span class="radio"></span>
+              <span class="option-text">Petite & slim</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="frame" value="m" />
+              <span class="radio"></span>
+              <span class="option-text">Athletic & toned</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="frame" value="m" />
+              <span class="radio"></span>
+              <span class="option-text">Average build</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="frame" value="l" />
+              <span class="radio"></span>
+              <span class="option-text">Curvy & full</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="frame" value="xl" />
+              <span class="radio"></span>
+              <span class="option-text">Broad & plus size</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q3: Fit Preference -->
+        <div class="question" data-q="3">
+          <h2>How do you like your clothes to fit?</h2>
+          <p class="hint">Your comfort zone matters</p>
+          <div class="options" data-name="fit">
+            <label class="option">
+              <input type="radio" name="fit" value="tight" />
+              <span class="radio"></span>
+              <span class="option-text">Snug & body-hugging</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="fit" value="true" />
+              <span class="radio"></span>
+              <span class="option-text">True to size, tailored</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="fit" value="relaxed" />
+              <span class="radio"></span>
+              <span class="option-text">Relaxed with some room</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="fit" value="oversized" />
+              <span class="radio"></span>
+              <span class="option-text">Oversized & loose</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q4: Style Personality -->
+        <div class="question" data-q="4">
+          <h2>Which vibe describes your style?</h2>
+          <p class="hint">Pick the one that resonates most</p>
+          <div class="options" data-name="style">
+            <label class="option">
+              <input type="radio" name="style" value="minimalist" />
+              <span class="radio"></span>
+              <span class="option-text">Clean lines, neutral tones, timeless</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="style" value="streetwear" />
+              <span class="radio"></span>
+              <span class="option-text">Bold graphics, sneakers, urban edge</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="style" value="romantic" />
+              <span class="radio"></span>
+              <span class="option-text">Florals, soft fabrics, feminine details</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="style" value="classic" />
+              <span class="radio"></span>
+              <span class="option-text">Polished, refined, elegant essentials</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="style" value="bohemian" />
+              <span class="radio"></span>
+              <span class="option-text">Earthy textures, layered, free-spirited</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q5: Wardrobe Priority -->
+        <div class="question" data-q="5">
+          <h2>What matters most in your wardrobe?</h2>
+          <p class="hint">Your everyday priority</p>
+          <div class="options" data-name="priority">
+            <label class="option">
+              <input type="radio" name="priority" value="minimalist" />
+              <span class="radio"></span>
+              <span class="option-text">Versatility — pieces that mix & match</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="priority" value="streetwear" />
+              <span class="radio"></span>
+              <span class="option-text">Statement looks that turn heads</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="priority" value="classic" />
+              <span class="radio"></span>
+              <span class="option-text">Quality fabrics that last for years</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="priority" value="romantic" />
+              <span class="radio"></span>
+              <span class="option-text">Pieces that make me feel beautiful</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="priority" value="bohemian" />
+              <span class="radio"></span>
+              <span class="option-text">Comfort and self-expression above all</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="error" id="errorMsg">Please select an answer to continue</div>
+
+        <div class="nav">
+          <button class="btn btn-secondary" id="prevBtn" style="display:none;">Back</button>
+          <button class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+      </div>
+
+      <!-- Result View -->
+      <div class="result" id="resultView">
+        <div class="result-badge">Your Style Profile</div>
+        <h2 id="personalityTitle">Minimalist</h2>
+        <p class="result-subtitle">Here's your personalized recommendation</p>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <div class="label">Your Size</div>
+            <div class="value size" id="sizeResult">M</div>
+          </div>
+          <div class="result-box">
+            <div class="label">Style Type</div>
+            <div class="value" id="styleResult">Minimalist</div>
+          </div>
+        </div>
+
+        <div class="personality-desc">
+          <h3 id="descTitle">About your style</h3>
+          <p id="descText"></p>
+        </div>
+
+        <div class="result-actions">
+          <a class="btn-cta" href="https://glamicia.com" target="_blank" rel="noopener">
+            View More at Glamicia
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <button class="btn btn-restart" id="restartBtn">Retake Quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const questions = document.querySelectorAll('.question');
+  const totalQuestions = questions.length;
+  let currentQ = 0;
+
+  const qCounter = document.getElementById('qCounter');
+  const qPercent = document.getElementById('qPercent');
+  const progressFill = document.getElementById('progressFill');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const quizView = document.getElementById('quizView');
+  const resultView = document.getElementById('resultView');
+  const restartBtn = document.getElementById('restartBtn');
+
+  // Personality descriptions
+  const personalities = {
+    minimalist: {
+      name: 'The Minimalist',
+      desc: 'You appreciate clean silhouettes, neutral palettes, and timeless pieces. Your wardrobe is curated, intentional, and effortlessly chic — where less is always more.'
+    },
+    streetwear: {
+      name: 'Streetwear Explorer',
+      desc: 'Bold, expressive, and unafraid to stand out. You blend comfort with edge, mixing statement graphics, sneakers, and modern silhouettes that turn heads.'
+    },
+    romantic: {
+      name: 'Romantic Dreamer',
+      desc: 'Soft fabrics, delicate florals, and feminine details speak to your soul. You dress like a love letter — graceful, dreamy, and beautifully detailed.'
+    },
+    classic: {
+      name: 'Modern Classic',
+      desc: 'Polished, refined, and always put-together. You invest in quality essentials that transcend trends — tailored blazers, crisp shirts, and pieces built to last.'
+    },
+    bohemian: {
+      name: 'Free-Spirit Bohemian',
+      desc: 'Earthy, layered, and unapologetically yourself. You gravitate toward flowing fabrics, rich textures, and pieces that tell a story of wanderlust and creativity.'
+    }
+  };
+
+  // Update progress bar
+  function updateProgress() {
+    const percent = ((currentQ + 1) / totalQuestions) * 100;
+    qCounter.textContent = `Question ${currentQ + 1} of ${totalQuestions}`;
+    qPercent.textContent = `${Math.round(percent)}%`;
+    progressFill.style.width = `${percent}%`;
+    prevBtn.style.display = currentQ === 0 ? 'none' : 'block';
+    nextBtn.textContent = currentQ === totalQuestions - 1 ? 'See Results' : 'Next';
+  }
+
+  // Show specific question
+  function showQuestion(idx) {
+    questions.forEach((q, i) => q.classList.toggle('active', i === idx));
+    errorMsg.classList.remove('show');
+    updateProgress();
+  }
+
+  // Handle option selection styling
+  document.querySelectorAll('.options').forEach(group => {
+    group.addEventListener('change', (e) => {
+      const labels = group.querySelectorAll('.option');
+      labels.forEach(l => l.classList.remove('selected'));
+      if (e.target.checked) {
+        e.target.closest('.option').classList.add('selected');
+        errorMsg.classList.remove('show');
+      }
+    });
+  });
+
+  // Get current selected value
+  function getCurrentAnswer() {
+    const activeQ = questions[currentQ];
+    const selected = activeQ.querySelector('input[type="radio"]:checked');
+    return selected ? selected.value : null;
+  }
+
+  // Next button
+  nextBtn.addEventListener('click', () => {
+    const answer = getCurrentAnswer();
+    if (!answer) {
+      errorMsg.classList.add('show');
+      return;
+    }
+    if (currentQ === totalQuestions - 1) {
+      calculateResult();
+    } else {
+      currentQ++;
+      showQuestion(currentQ);
+    }
+  });
+
+  // Prev button
+  prevBtn.addEventListener('click', () => {
+    if (currentQ > 0) {
+      currentQ--;
+      showQuestion(currentQ);
+    }
+  });
+
+  // Calculate size and personality
+  function calculateResult() {
+    const answers = {};
+    questions.forEach(q => {
+      const selected = q.querySelector('input[type="radio"]:checked');
+      if (selected) {
+        answers[selected.name] = selected.value;
+      }
+    });
+
+    // Size calculation: map height + frame + fit preference
+    const sizeMap = { xs: 0, s: 1, m: 2, l: 3, xl: 4 };
+    const sizeLabels = ['S', 'S', 'M', 'L', 'XL'];
+
+    let sizeScore = 0;
+    let count = 0;
+    if (answers.height && sizeMap[answers.height] !== undefined) {
+      sizeScore += sizeMap[answers.height];
+      count++;
+    }
+    if (answers.frame && sizeMap[answers.frame] !== undefined) {
+      sizeScore += sizeMap[answers.frame] * 1.5; // frame weighs more
+      count += 1.5;
+    }
+
+    let avgSize = Math.round(sizeScore / count);
+
+    // Adjust by fit preference
+    if (answers.fit === 'oversized') avgSize += 1;
+    else if (answers.fit === 'relaxed') avgSize += 0.5;
+    else if (answers.fit === 'tight') avgSize -= 0.5;
+
+    avgSize = Math.max(0, Math.min(4, Math.round(avgSize)));
+    const finalSize = sizeLabels[avgSize];
+
+    // Personality calculation: tally style + priority
+    const styleVotes = {};
+    [answers.style, answers.priority].forEach(v => {
+      if (v) styleVotes[v] = (styleVotes[v] || 0) + 1;
+    });
+
+    let topStyle = 'minimalist';
+    let topCount = 0;
+    for (const [key, val] of Object.entries(styleVotes)) {
+      if (val > topCount) {
+        topCount = val;
+        topStyle = key;
+      }
+    }
+
+    // Display
+    const personality = personalities[topStyle];
+    document.getElementById('sizeResult').textContent = finalSize;
+    document.getElementById('styleResult').textContent = personality.name.replace('The ', '');
+    document.getElementById('personalityTitle').textContent = personality.name;
+    document.getElementById('descTitle').textContent = `About ${personality.name}`;
+    document.getElementById('descText').textContent = personality.desc;
+
+    quizView.style.display = 'none';
+    resultView.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Restart
+  restartBtn.addEventListener('click', () => {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    currentQ = 0;
+    resultView.classList.remove('active');
+    quizView.style.display = 'block';
+    showQuestion(0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Init
+  updateProgress();
+</script>
+</body>
+</html>
